@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Live Location Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Location Tracker</span>
+                </div>
+                <div class="nav-links">
+                    <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="profil.html" class="active"><i class="fas fa-user"></i> Profile</a>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <img src="https://picsum.photos/seed/user123/40/40.jpg" alt="User" class="user-avatar">
+                            <span id="user-name">User Name</span>
+                        </div>
+                        <div class="dropdown">
+                            <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                    <div class="theme-toggle">
+                        <i class="fas fa-moon" id="theme-toggle"></i>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="profile-page">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <img src="https://picsum.photos/seed/user123/150/150.jpg" alt="User Avatar" id="profile-avatar">
+                    <button class="btn-icon" id="change-avatar-btn"><i class="fas fa-camera"></i></button>
+                </div>
+                <div class="profile-info">
+                    <h1 id="profile-fullname">User Name</h1>
+                    <p id="profile-email">user@example.com</p>
+                    <p><i class="fas fa-calendar-alt"></i> Joined: <span id="profile-joined">January 1, 2023</span></p>
+                </div>
+            </div>
+
+            <div class="profile-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-user-edit"></i> Edit Profile</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="edit-profile-form">
+                            <div class="form-group">
+                                <label for="edit-fullname"><i class="fas fa-user"></i> Full Name</label>
+                                <input type="text" id="edit-fullname" name="fullname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-email"><i class="fas fa-envelope"></i> Email</label>
+                                <input type="email" id="edit-email" name="email" required>
+                            </div>
+                            <button type="submit" class="btn primary"><i class="fas fa-save"></i> Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-key"></i> Change Password</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="password-error" class="error-message"></div>
+                        <div id="password-success" class="success-message"></div>
+                        <form id="change-password-form">
+                            <div class="form-group">
+                                <label for="current-password"><i class="fas fa-lock"></i> Current Password</label>
+                                <input type="password" id="current-password" name="current-password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-password"><i class="fas fa-lock"></i> New Password</label>
+                                <input type="password" id="new-password" name="new-password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-new-password"><i class="fas fa-lock"></i> Confirm New Password</label>
+                                <input type="password" id="confirm-new-password" name="confirm-new-password" required>
+                            </div>
+                            <button type="submit" class="btn primary"><i class="fas fa-key"></i> Change Password</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card danger">
+                    <div class="card-header">
+                        <h2><i class="fas fa-exclamation-triangle"></i> Delete Account</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Deleting your account is permanent and cannot be undone. All your data will be removed.</p>
+                        <button id="delete-account-btn" class="btn danger"><i class="fas fa-trash-alt"></i> Delete Account</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Location Tracker</h3>
+                    <p>Professional live location tracking service.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="profil.html">Profile</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@locationtracker.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (123) 456-7890</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Location Tracker. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <div id="delete-account-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Delete Account</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                <p>To confirm, please type <strong>DELETE</strong> in the box below:</p>
+                <form id="delete-account-form">
+                    <div class="form-group">
+                        <input type="text" id="delete-confirm" name="delete-confirm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="delete-password"><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="delete-password" name="delete-password" required>
+                    </div>
+                    <button type="submit" class="btn danger"><i class="fas fa-trash-alt"></i> Delete My Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-storage-compat.js"></script>
+    <script src="dbs.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

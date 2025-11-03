@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Live Location Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Location Tracker</span>
+                </div>
+                <div class="nav-links">
+                    <a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="profil.html"><i class="fas fa-user"></i> Profile</a>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <img src="https://picsum.photos/seed/user123/40/40.jpg" alt="User" class="user-avatar">
+                            <span id="user-name">User Name</span>
+                        </div>
+                        <div class="dropdown">
+                            <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                    <div class="theme-toggle">
+                        <i class="fas fa-moon" id="theme-toggle"></i>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="dashboard">
+            <div class="dashboard-header">
+                <h1>Location Tracking Dashboard</h1>
+                <p>Manage your location tracking links and view shared locations.</p>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-map-marker-alt"></i> Create New Tracker</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Create a new location tracking link to share your real-time location.</p>
+                        <button id="create-tracker" class="btn primary"><i class="fas fa-plus"></i> Create Tracker</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-list"></i> Your Trackers</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="trackers-list" class="trackers-list">
+                            <div class="empty-state">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <p>You don't have any trackers yet. Create one to get started!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-map"></i> Current Location</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="map-container" class="map-container">
+                            <div id="map-loading" class="loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Getting your location...</p>
+                            </div>
+                            <div id="map-error" class="error-message"></div>
+                            <div id="map-content" class="map-content" style="display: none;">
+                                <div class="location-info">
+                                    <p><strong>Latitude:</strong> <span id="latitude">-</span></p>
+                                    <p><strong>Longitude:</strong> <span id="longitude">-</span></p>
+                                    <p><strong>Accuracy:</strong> <span id="accuracy">-</span> meters</p>
+                                    <p><strong>Last Updated:</strong> <span id="last-updated">-</span></p>
+                                </div>
+                                <div class="map-actions">
+                                    <button id="refresh-location" class="btn secondary"><i class="fas fa-sync-alt"></i> Refresh Location</button>
+                                    <button id="open-map" class="btn primary"><i class="fas fa-map-marked-alt"></i> Open in Maps</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Location Tracker</h3>
+                    <p>Professional live location tracking service.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="profil.html">Profile</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@locationtracker.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (123) 456-7890</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Location Tracker. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <div id="create-tracker-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-map-marker-alt"></i> Create New Tracker</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="create-tracker-form">
+                    <div class="form-group">
+                        <label for="tracker-name"><i class="fas fa-tag"></i> Tracker Name</label>
+                        <input type="text" id="tracker-name" name="tracker-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tracker-description"><i class="fas fa-info-circle"></i> Description</label>
+                        <textarea id="tracker-description" name="tracker-description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiry-time"><i class="fas fa-clock"></i> Expiry Time</label>
+                        <select id="expiry-time" name="expiry-time">
+                            <option value="1">1 Hour</option>
+                            <option value="6">6 Hours</option>
+                            <option value="24" selected>24 Hours</option>
+                            <option value="168">1 Week</option>
+                            <option value="0">Never</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="redirect-url"><i class="fas fa-link"></i> Redirect URL (Optional)</label>
+                        <input type="url" id="redirect-url" name="redirect-url" placeholder="https://example.com">
+                    </div>
+                    <button type="submit" class="btn primary"><i class="fas fa-plus"></i> Create Tracker</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-storage-compat.js"></script>
+    <script src="dbs.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
