@@ -1,49 +1,361 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Location Tracker - Professional</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>Kata Kata Motivasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000000;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: #888888;
+            font-size: 1.1rem;
+        }
+
+        .quote-container {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-container::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 4rem;
+            color: #333333;
+            font-family: Georgia, serif;
+        }
+
+        .quote-text {
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #ffffff;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            color: #666666;
+            font-size: 1rem;
+            text-align: right;
+        }
+
+        .controls {
+            margin-top: 30px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+            color: #ffffff;
+            border: 1px solid #333333;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #2a2a2a, #3a3a3a);
+            border-color: #555555;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .loading {
+            display: none;
+            color: #888888;
+            font-style: italic;
+        }
+
+        .error {
+            display: none;
+            color: #ff4444;
+            background: #1a0a0a;
+            border: 1px solid #ff4444;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .api-info {
+            background: #0f0f0f;
+            border: 1px solid #1f1f1f;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #666666;
+        }
+
+        .api-key-input {
+            background: #1a1a1a;
+            border: 1px solid #333333;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 10px;
+            width: 300px;
+            max-width: 100%;
+        }
+
+        .api-key-input::placeholder {
+            color: #666666;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .quote-container {
+                padding: 30px 20px;
+            }
+            
+            .quote-text {
+                font-size: 1.2rem;
+            }
+            
+            .btn {
+                margin: 5px;
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .api-key-input {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .quote-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <nav>
-                <div class="logo">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Location Tracker</span>
-                </div>
-                <div class="nav-links">
-                    <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
-                    <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
-                    <a href="register.html"><i class="fas fa-user-plus"></i> Register</a>
-                    <div class="theme-toggle">
-                        <i class="fas fa-moon" id="theme-toggle"></i>
-                    </div>
-                </div>
-            </nav>
-        </header>
+        <div class="header">
+            <h1>KATA KATA</h1>
+            <p>Inspirasi Harian Untuk Anda</p>
+        </div>
 
-        <main>
-            <section class="hero">
-                <h1>Professional Live Location Tracker</h1>
-                <p>Track locations with 100% accuracy and precision. Secure, private, and reliable.</p>
-                <div class="cta-buttons">
-                    <a href="register.html" class="btn primary"><i class="fas fa-rocket"></i> Get Started</a>
-                    <a href="#features" class="btn secondary"><i class="fas fa-info-circle"></i> Learn More</a>
-                </div>
-            </section>
+        <div class="quote-container">
+            <div class="quote-text" id="quoteText">
+                Klik tombol di bawah untuk mendapatkan kata kata motivasi
+            </div>
+            <div class="quote-author" id="quoteAuthor"></div>
+        </div>
 
-            <section id="features" class="features">
-                <h2>Features</h2>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-map-marked-alt"></i>
-                        <h3>Live Tracking</h3>
-                        <p>Real-time location tracking with 100% accuracy and precision.</p>
-                    </div>
+        <div class="controls">
+            <button class="btn" onclick="getRandomQuote()">Quote Baru</button>
+            <button class="btn" onclick="copyQuote()">Salin Quote</button>
+        </div>
+
+        <div class="loading" id="loading">Memuat quote...</div>
+        <div class="error" id="error"></div>
+
+        <div class="api-info">
+            <h3>API Key Configuration</h3>
+            <p>Masukkan API Key Anda (dapatkan dari <a href="https://katakataquote.netlify.app" target="_blank" style="color: #4a9eff;">dashboard</a>)</p>
+            <input type="password" class="api-key-input" id="apiKeyInput" placeholder="Masukkan API Key di sini..." />
+            <button class="btn" onclick="saveApiKey()">Simpan API Key</button>
+            <p style="margin-top: 10px; font-size: 0.8rem;">
+                Free plan: 10 request/hari | Premium: Unlimited
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let apiKey = localStorage.getItem('katakata_api_key') || '';
+
+        // Save API Key to localStorage
+        function saveApiKey() {
+            const input = document.getElementById('apiKeyInput');
+            if (input.value.trim()) {
+                apiKey = input.value.trim();
+                localStorage.setItem('katakata_api_key', apiKey);
+                alert('API Key berhasil disimpan!');
+            } else {
+                alert('Masukkan API Key yang valid!');
+            }
+        }
+
+        // Load saved API Key
+        window.onload = function() {
+            const savedKey = localStorage.getItem('katakata_api_key');
+            if (savedKey) {
+                document.getElementById('apiKeyInput').value = savedKey;
+                apiKey = savedKey;
+            }
+        };
+
+        // Get random quote from API
+        async function getRandomQuote() {
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const quoteText = document.getElementById('quoteText');
+            const quoteAuthor = document.getElementById('quoteAuthor');
+
+            // Show loading, hide error
+            loading.style.display = 'block';
+            error.style.display = 'none';
+
+            if (!apiKey) {
+                error.textContent = 'Silakan masukkan API Key terlebih dahulu!';
+                error.style.display = 'block';
+                loading.style.display = 'none';
+                return;
+            }
+
+            try {
+                // Try different possible endpoints
+                const endpoints = [
+                    '/api/quotes/random',
+                    '/api/quote/random',
+                    '/api/random',
+                    '/quotes/random'
+                ];
+
+                let response = null;
+                let lastError = null;
+
+                for (let endpoint of endpoints) {
+                    try {
+                        response = await fetch(`https://katakataquote.netlify.app${endpoint}`, {
+                            headers: {
+                                'x-api-key': apiKey,
+                                'Content-Type': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            break; // Exit loop if successful
+                        }
+                    } catch (e) {
+                        lastError = e;
+                        continue; // Try next endpoint
+                    }
+                }
+
+                if (!response || !response.ok) {
+                    throw new Error(lastError?.message || `Gagal mengambil quote. Status: ${response?.status}`);
+                }
+
+                const data = await response.json();
+                
+                // Display the quote (adjust based on actual API response format)
+                if (data.quote || data.kutipan || data.text) {
+                    quoteText.textContent = data.quote || data.kutipan || data.text;
+                    quoteAuthor.textContent = data.author || data.penulis || '';
+                } else if (Array.isArray(data) && data.length > 0) {
+                    // If response is an array
+                    quoteText.textContent = data[0].quote || data[0].kutipan || data[0].text || JSON.stringify(data[0]);
+                    quoteAuthor.textContent = data[0].author || data[0].penulis || '';
+                } else {
+                    // Fallback: display the raw data
+                    quoteText.textContent = JSON.stringify(data, null, 2);
+                    quoteAuthor.textContent = '';
+                }
+
+            } catch (err) {
+                error.textContent = `Error: ${err.message}`;
+                error.style.display = 'block';
+                quoteText.textContent = 'Gagal memuat quote. Coba lagi nanti.';
+                quoteAuthor.textContent = '';
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        // Copy quote to clipboard
+        function copyQuote() {
+            const quoteText = document.getElementById('quoteText').textContent;
+            const quoteAuthor = document.getElementById('quoteAuthor').textContent;
+            
+            const fullQuote = quoteAuthor ? `"${quoteText}" - ${quoteAuthor}` : `"${quoteText}"`;
+            
+            navigator.clipboard.writeText(fullQuote).then(() => {
+                // Temporary feedback
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Tersalin!';
+                btn.style.background = 'linear-gradient(45deg, #0f4f0f, #1f6f1f)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = 'linear-gradient(45deg, #1a1a1a, #2a2a2a)';
+                }, 2000);
+            }).catch(() => {
+                alert('Gagal menyalin quote. Silakan salin manual.');
+            });
+        }
+
+        // Get initial quote when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (apiKey) {
+                getRandomQuote();
+            }
+        });
+    </script>
+</body>
+</html>                    </div>
                     <div class="feature-card">
                         <i class="fas fa-shield-alt"></i>
                         <h3>Secure & Private</h3>
@@ -128,4 +440,5 @@
     <script src="dbs.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
