@@ -280,7 +280,7 @@
 
                 for (let endpoint of endpoints) {
                     try {
-                        response = await fetch(`https://proxy.corsfix.com/?https://katakataquote.netlify.app${endpoint}`, {
+                        response = await fetch(`https://proxy.corsfix.com/?url=https://katakataquote.netlify.app${endpoint}`, {
                             headers: {
                                 'x-api-key': apiKey,
                                 'Content-Type': 'application/json'
