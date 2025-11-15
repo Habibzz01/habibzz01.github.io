@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kata Kata Motivasi</title>
-    <link rel="icon" type="image/svg+xml" href="https://files.catbox.moe/kr4vsu.jpeg">	
+    <title>Kata Kata Quote</title>
+    <link rel="icon" type="image/svg+xml" href="https://files.catbox.moe/kr4vsu.jpeg">
     <meta name="description" content="Testing API QUOTE By Xbibz Official">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #ffffff;
+            --secondary: #b0b0b0;
+            --accent: #7e57c2;
+            --background: #000000;
+            --surface: #121212;
+            --error: #cf6679;
+            --success: #4caf50;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,9 +25,9 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #000000;
-            color: #e0e0e0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--primary);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -34,149 +45,225 @@
 
         .header {
             margin-bottom: 40px;
+            position: relative;
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            font-weight: 300;
-            color: #ffffff;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary);
             margin-bottom: 10px;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .header p {
-            color: #888888;
+            color: var(--secondary);
             font-size: 1.1rem;
         }
 
         .quote-container {
-            background: #0a0a0a;
-            border: 1px solid #1a1a1a;
-            border-radius: 15px;
-            padding: 40px;
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 50px 40px;
             margin: 30px 0;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .quote-container::before {
-            content: '"';
+        .quote-icon {
             position: absolute;
-            top: 10px;
+            top: 20px;
             left: 20px;
-            font-size: 4rem;
-            color: #333333;
-            font-family: Georgia, serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+            opacity: 0.7;
         }
 
         .quote-text {
-            font-size: 1.4rem;
-            font-style: italic;
-            color: #ffffff;
-            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 25px;
             position: relative;
             z-index: 1;
+            font-weight: 400;
+            line-height: 1.8;
         }
 
         .quote-author {
-            color: #666666;
-            font-size: 1rem;
+            color: var(--accent);
+            font-size: 1.1rem;
             text-align: right;
+            font-weight: 500;
+            margin-top: 20px;
         }
 
         .controls {
             margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .btn {
-            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
-            color: #ffffff;
-            border: 1px solid #333333;
-            padding: 12px 30px;
-            border-radius: 25px;
+            background: var(--surface);
+            color: var(--primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 24px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 1rem;
-            margin: 0 10px;
             transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
         }
 
         .btn:hover {
-            background: linear-gradient(45deg, #2a2a2a, #3a3a3a);
-            border-color: #555555;
+            background: rgba(255, 255, 255, 0.05);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .btn:active {
             transform: translateY(0);
         }
 
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: rgba(126, 87, 194, 0.8);
+        }
+
         .loading {
             display: none;
-            color: #888888;
+            color: var(--secondary);
             font-style: italic;
+            margin: 20px 0;
         }
 
         .error {
             display: none;
-            color: #ff4444;
-            background: #1a0a0a;
-            border: 1px solid #ff4444;
+            color: var(--error);
+            background: rgba(207, 102, 121, 0.1);
             border-radius: 8px;
             padding: 15px;
             margin: 20px 0;
+            border-left: 4px solid var(--error);
         }
 
         .api-info {
-            background: #0f0f0f;
-            border: 1px solid #1f1f1f;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 30px;
-            font-size: 0.9rem;
-            color: #666666;
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .api-info h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .api-info p {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
         }
 
         .api-key-input {
-            background: #1a1a1a;
-            border: 1px solid #333333;
-            color: #ffffff;
-            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--primary);
+            padding: 12px 15px;
             border-radius: 8px;
-            margin: 10px;
-            width: 300px;
-            max-width: 100%;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .api-key-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(126, 87, 194, 0.2);
         }
 
         .api-key-input::placeholder {
-            color: #666666;
+            color: var(--secondary);
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .quote-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .quote-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .icon-btn:hover {
+            color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .success-message {
+            color: var(--success);
+            margin-top: 10px;
+            display: none;
         }
 
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .quote-container {
-                padding: 30px 20px;
+                padding: 40px 25px;
             }
             
             .quote-text {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             
             .btn {
-                margin: 5px;
                 padding: 10px 20px;
-                font-size: 0.9rem;
+                font-size: 0.95rem;
             }
             
-            .api-key-input {
-                width: 100%;
-                margin: 10px 0;
+            .controls {
+                gap: 10px;
             }
         }
 
@@ -188,39 +275,70 @@
             .quote-text {
                 font-size: 1.1rem;
             }
+            
+            .quote-container {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>KATA KATA</h1>
-            <p>Inspirasi Harian Untuk Anda</p>
+            <h1>Kata Kata</h1>
+            <p>Quote Created By Xbibz Official</p>
         </div>
 
         <div class="quote-container">
+            <div class="quote-icon">
+                <i class="fas fa-quote-left"></i>
+            </div>
             <div class="quote-text" id="quoteText">
                 Klik tombol di bawah untuk mendapatkan kata kata motivasi
             </div>
             <div class="quote-author" id="quoteAuthor"></div>
+            
+            <div class="quote-meta">
+                <div class="quote-actions">
+                    <button class="icon-btn" onclick="copyQuote()" title="Salin Quote">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    <button class="icon-btn" onclick="shareQuote()" title="Bagikan Quote">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                </div>
+                <div id="quoteLength"></div>
+            </div>
         </div>
 
         <div class="controls">
-            <button class="btn" onclick="getRandomQuote()">Quote Baru</button>
-            <button class="btn" onclick="copyQuote()">Salin Quote</button>
+            <button class="btn btn-primary" onclick="getRandomQuote()">
+                <i class="fas fa-sync-alt"></i> Quote Baru
+            </button>
         </div>
 
-        <div class="loading" id="loading">Memuat quote...</div>
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner fa-spin"></i> Memuat quote...
+        </div>
         <div class="error" id="error"></div>
 
         <div class="api-info">
-            <h3>API Key Configuration</h3>
-            <p>Masukkan API Key Anda (dapatkan dari <a href="https://katakataquote.netlify.app" target="_blank" style="color: #4a9eff;">dashboard</a>)</p>
+            <h3><i class="fas fa-key"></i> Konfigurasi API</h3>
+            <p>Masukkan API Key Anda (dapatkan dari <a href="https://katakataquote.netlify.app" target="_blank" style="color: var(--accent);">dashboard</a>)</p>
             <input type="password" class="api-key-input" id="apiKeyInput" placeholder="Masukkan API Key di sini..." />
-            <button class="btn" onclick="saveApiKey()">Simpan API Key</button>
-            <p style="margin-top: 10px; font-size: 0.8rem;">
-                Free plan: 10 request/hari | Premium: Unlimited
+            <button class="btn" onclick="saveApiKey()">
+                <i class="fas fa-save"></i> Simpan API Key
+            </button>
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i> API Key berhasil disimpan!
+            </div>
+            <p style="margin-top: 15px; font-size: 0.85rem;">
+                <i class="fas fa-info-circle"></i> Free plan: 10 request/hari | Premium: Unlimited
             </p>
+        </div>
+
+        <div class="footer">
+            <p>© 2023 Kata Kata Motivasi</p>
         </div>
     </div>
 
@@ -230,13 +348,31 @@
         // Save API Key to localStorage
         function saveApiKey() {
             const input = document.getElementById('apiKeyInput');
+            const successMessage = document.getElementById('successMessage');
+            
             if (input.value.trim()) {
                 apiKey = input.value.trim();
                 localStorage.setItem('katakata_api_key', apiKey);
-                alert('API Key berhasil disimpan!');
+                
+                // Show success message
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
             } else {
-                alert('Masukkan API Key yang valid!');
+                showError('Masukkan API Key yang valid!');
             }
+        }
+
+        // Show error message
+        function showError(message) {
+            const error = document.getElementById('error');
+            error.textContent = message;
+            error.style.display = 'block';
+            
+            setTimeout(() => {
+                error.style.display = 'none';
+            }, 5000);
         }
 
         // Load saved API Key
@@ -254,50 +390,32 @@
             const error = document.getElementById('error');
             const quoteText = document.getElementById('quoteText');
             const quoteAuthor = document.getElementById('quoteAuthor');
+            const quoteLength = document.getElementById('quoteLength');
 
             // Show loading, hide error
             loading.style.display = 'block';
             error.style.display = 'none';
 
             if (!apiKey) {
-                error.textContent = 'Silakan masukkan API Key terlebih dahulu!';
-                error.style.display = 'block';
+                showError('Silakan masukkan API Key terlebih dahulu!');
                 loading.style.display = 'none';
                 return;
             }
 
             try {
-                // Try different possible endpoints
-                const endpoints = [
-                    '/api/get-quote',
-                    '/api/get-quote',
-                    '/api/get-quote',
-                    '/api/get-quote'
-                ];
-
-                let response = null;
-                let lastError = null;
-
-                for (let endpoint of endpoints) {
-                    try {
-                        response = await fetch(`https://proxy.corsfix.com/?url=https://katakataquote.netlify.app${endpoint}`, {
-                            headers: {
-                                'x-api-key': apiKey,
-                                'Content-Type': 'application/json'
-                            }
-                        });
-
-                        if (response.ok) {
-                            break; // Exit loop if successful
-                        }
-                    } catch (e) {
-                        lastError = e;
-                        continue; // Try next endpoint
+                // Using a CORS proxy to avoid CORS issues
+                const proxyUrl = 'https://proxy.corsfix.com/?url=';
+                const apiUrl = 'https://katakataquote.netlify.app/api/get-quote';
+                
+                const response = await fetch(proxyUrl + encodeURIComponent(apiUrl), {
+                    headers: {
+                        'x-api-key': apiKey,
+                        'Content-Type': 'application/json'
                     }
-                }
+                });
 
-                if (!response || !response.ok) {
-                    throw new Error(lastError?.message || `Gagal mengambil quote. Status: ${response?.status}`);
+                if (!response.ok) {
+                    throw new Error(`Gagal mengambil quote. Status: ${response.status}`);
                 }
 
                 const data = await response.json();
@@ -315,12 +433,16 @@
                     quoteText.textContent = JSON.stringify(data, null, 2);
                     quoteAuthor.textContent = '';
                 }
+                
+                // Update quote length
+                const textLength = quoteText.textContent.length;
+                quoteLength.textContent = `${textLength} karakter`;
 
             } catch (err) {
-                error.textContent = `Error: ${err.message}`;
-                error.style.display = 'block';
+                showError(`Error: ${err.message}`);
                 quoteText.textContent = 'Gagal memuat quote. Coba lagi nanti.';
                 quoteAuthor.textContent = '';
+                quoteLength.textContent = '';
             } finally {
                 loading.style.display = 'none';
             }
@@ -334,19 +456,40 @@
             const fullQuote = quoteAuthor ? `"${quoteText}" - ${quoteAuthor}` : `"${quoteText}"`;
             
             navigator.clipboard.writeText(fullQuote).then(() => {
-                // Temporary feedback
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = 'Tersalin!';
-                btn.style.background = 'linear-gradient(45deg, #0f4f0f, #1f6f1f)';
+                // Show temporary feedback
+                const iconBtn = event.target.closest('.icon-btn');
+                const originalIcon = iconBtn.innerHTML;
+                iconBtn.innerHTML = '<i class="fas fa-check"></i>';
+                iconBtn.style.color = 'var(--success)';
                 
                 setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.style.background = 'linear-gradient(45deg, #1a1a1a, #2a2a2a)';
+                    iconBtn.innerHTML = originalIcon;
+                    iconBtn.style.color = '';
                 }, 2000);
             }).catch(() => {
-                alert('Gagal menyalin quote. Silakan salin manual.');
+                showError('Gagal menyalin quote. Silakan salin manual.');
             });
+        }
+
+        // Share quote
+        function shareQuote() {
+            const quoteText = document.getElementById('quoteText').textContent;
+            const quoteAuthor = document.getElementById('quoteAuthor').textContent;
+            
+            const fullQuote = quoteAuthor ? `"${quoteText}" - ${quoteAuthor}` : `"${quoteText}"`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Kata Kata Motivasi',
+                    text: fullQuote,
+                    url: window.location.href
+                }).catch(err => {
+                    console.log('Error sharing:', err);
+                });
+            } else {
+                // Fallback: copy to clipboard
+                copyQuote();
+            }
         }
 
         // Get initial quote when page loads
