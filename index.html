@@ -4,18 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kata Kata Quote</title>
-    <link rel="icon" type="image/svg+xml" href="https://files.catbox.moe/kr4vsu.jpeg">
-    <meta name="description" content="Testing API QUOTE By Xbibz Official">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <meta name="description" content="Testing API QUOTE By Xbibz Official">
+
     <style>
         :root {
-            --primary: #ffffff;
-            --secondary: #b0b0b0;
-            --accent: #7e57c2;
-            --background: #000000;
-            --surface: #121212;
-            --error: #cf6679;
-            --success: #4caf50;
+            /* TEMA AMOLED MODERN
+              - Latar belakang hitam pekat (#000000) untuk AMOLED.
+              - Permukaan (surface) abu-abu sangat gelap untuk kontras.
+              - Aksen biru elektrik untuk tampilan "canggih".
+              - Teks off-white (#e0e0e0) agar lebih nyaman di mata daripada putih pekat.
+            */
+            --bg: #000000;
+            --surface: #111111;
+            --surface-hover: #1f1f1f;
+            --border: #2a2a2a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #757575;
+            --accent: #00A1FF;
+            --accent-hover: #007BFF;
+            --error: #FF5252;
+            --success: #00C853;
         }
 
         * {
@@ -24,272 +38,300 @@
             box-sizing: border-box;
         }
 
+        html {
+            /* Efek scroll yang lebih mulus */
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--background);
-            color: var(--primary);
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            line-height: 1.6;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            line-height: 1.7;
+            /* Anti-aliasing untuk teks yang lebih tajam */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
-            max-width: 800px;
             width: 100%;
-            text-align: center;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }
 
+        /* --- Header --- */
         .header {
-            margin-bottom: 40px;
-            position: relative;
+            text-align: center;
+            margin-bottom: 16px;
         }
 
         .header h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-primary);
+            letter-spacing: -1px;
         }
 
         .header p {
-            color: var(--secondary);
+            color: var(--text-secondary);
             font-size: 1.1rem;
+            margin-top: 4px;
         }
 
-        .quote-container {
+        /* --- Kartu Quote Utama --- */
+        .quote-card {
             background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 50px 40px;
-            margin: 30px 0;
+            padding: 32px 40px;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            /* Bayangan halus dengan warna aksen untuk efek "canggih" */
+            box-shadow: 0 8px 32px rgba(0, 161, 255, 0.05);
         }
 
         .quote-icon {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 1.8rem;
-            color: var(--accent);
-            opacity: 0.7;
+            top: 24px;
+            left: 24px;
+            font-size: 2rem;
+            color: var(--text-secondary);
+            opacity: 0.1;
         }
 
         .quote-text {
             font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 1;
-            font-weight: 400;
-            line-height: 1.8;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            font-style: italic;
         }
 
         .quote-author {
             color: var(--accent);
             font-size: 1.1rem;
             text-align: right;
-            font-weight: 500;
-            margin-top: 20px;
+            font-weight: 600;
+        }
+        
+        /* Tanda hubung "—" sebelum nama author */
+        .quote-author::before {
+            content: '— ';
+            color: var(--text-secondary);
         }
 
-        .controls {
-            margin-top: 30px;
+        /* --- Meta & Aksi Quote --- */
+        .quote-meta {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            background: var(--surface);
-            color: var(--primary);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 24px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            display: flex;
+            justify-content: space-between;
             align-items: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .quote-actions {
+            display: flex;
             gap: 8px;
-            font-weight: 500;
         }
 
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        /* --- Tombol --- */
+        .btn, .icon-btn {
+            cursor: pointer;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
         }
 
-        .btn:active {
-            transform: translateY(0);
-        }
-
+        /* Tombol Utama (Primary) */
         .btn-primary {
             background: var(--accent);
-            border-color: var(--accent);
+            color: #ffffff;
+            padding: 14px 28px;
+            font-size: 1rem;
+            width: 100%;
         }
 
         .btn-primary:hover {
-            background: rgba(126, 87, 194, 0.8);
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 161, 255, 0.2);
+        }
+
+        /* Tombol Ikon (Copy, Share) */
+        .icon-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+            border-radius: 50%; /* Bulat sempurna */
+        }
+
+        .icon-btn:hover {
+            color: var(--accent);
+            background: rgba(0, 161, 255, 0.1);
+        }
+
+        /* --- Notifikasi (Loading, Error, Success) --- */
+        .notification {
+            padding: 14px;
+            border-radius: 8px;
+            margin-top: 16px;
+            display: none; /* Sembunyi secara default */
+            text-align: center;
+            font-weight: 500;
         }
 
         .loading {
-            display: none;
-            color: var(--secondary);
+            color: var(--text-secondary);
             font-style: italic;
-            margin: 20px 0;
         }
 
         .error {
-            display: none;
+            background: rgba(255, 82, 82, 0.05);
             color: var(--error);
-            background: rgba(207, 102, 121, 0.1);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 20px 0;
-            border-left: 4px solid var(--error);
+            border: 1px solid var(--error);
         }
 
-        .api-info {
+        .success {
+            background: rgba(0, 200, 83, 0.05);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        /* --- Konfigurasi API --- */
+        .api-config {
             background: var(--surface);
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 40px;
-            text-align: left;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
         }
 
-        .api-info h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
+        .api-config h3 {
             font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
         }
 
-        .api-info p {
-            color: var(--secondary);
-            margin-bottom: 15px;
+        .api-config p {
+            color: var(--text-secondary);
             font-size: 0.95rem;
+            margin-bottom: 16px;
         }
 
+        .api-config p a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .api-config p a:hover {
+            text-decoration: underline;
+        }
+        
         .api-key-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--primary);
-            padding: 12px 15px;
+            background: var(--bg); /* Latar belakang input = latar belakang body */
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 12px 16px;
             border-radius: 8px;
-            margin: 10px 0;
+            margin: 8px 0 12px;
             width: 100%;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.25s ease;
         }
 
         .api-key-input:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 0 2px rgba(126, 87, 194, 0.2);
+            /* Efek glow saat fokus */
+            box-shadow: 0 0 0 3px rgba(0, 161, 255, 0.2);
         }
 
         .api-key-input::placeholder {
-            color: var(--secondary);
+            color: var(--text-secondary);
+            opacity: 0.7;
         }
 
+        /* Tombol Simpan (Sekunder) */
+        .btn-secondary {
+            background: var(--surface-hover);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            font-size: 0.95rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface);
+            border-color: var(--text-secondary);
+        }
+        
+        .api-config .success {
+            margin-bottom: 0;
+            margin-top: 12px;
+        }
+
+        /* --- Footer --- */
         .footer {
-            margin-top: 40px;
-            color: var(--secondary);
-            font-size: 0.9rem;
+            margin-top: 16px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-align: center;
         }
 
-        .quote-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: var(--secondary);
-        }
+        /* --- Responsif --- */
+        @media (max-width: 640px) {
+            body {
+                padding: 16px;
+            }
 
-        .quote-actions {
-            display: flex;
-            gap: 10px;
-        }
+            .container {
+                gap: 20px;
+            }
 
-        .icon-btn {
-            background: none;
-            border: none;
-            color: var(--secondary);
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            padding: 8px;
-            border-radius: 8px;
-        }
-
-        .icon-btn:hover {
-            color: var(--primary);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .success-message {
-            color: var(--success);
-            margin-top: 10px;
-            display: none;
-        }
-
-        @media (max-width: 768px) {
             .header h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
-            
-            .quote-container {
-                padding: 40px 25px;
+            .header p {
+                font-size: 1rem;
             }
-            
-            .quote-text {
-                font-size: 1.3rem;
-            }
-            
-            .btn {
-                padding: 10px 20px;
-                font-size: 0.95rem;
-            }
-            
-            .controls {
-                gap: 10px;
-            }
-        }
 
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.8rem;
+            .quote-card {
+                padding: 24px;
             }
-            
+
             .quote-text {
-                font-size: 1.1rem;
-            }
-            
-            .quote-container {
-                padding: 30px 20px;
+                font-size: 1.25rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Kata Kata</h1>
-            <p>Quote Created By Xbibz Official</p>
-        </div>
 
-        <div class="quote-container">
+    <main class="container">
+
+        <header class="header">
+            <h1>Kata Kata</h1>
+            <p>Quote Create By Xbibz Official</p>
+        </header>
+
+        <section class="quote-card">
             <div class="quote-icon">
                 <i class="fas fa-quote-left"></i>
             </div>
@@ -300,8 +342,8 @@
             
             <div class="quote-meta">
                 <div class="quote-actions">
-                    <button class="icon-btn" onclick="copyQuote()" title="Salin Quote">
-                        <i class="fas fa-copy"></i>
+                    <button class="icon-btn" onclick="copyQuote()" title="Salin Quote" id="copyButton">
+                        <i class="far fa-copy"></i>
                     </button>
                     <button class="icon-btn" onclick="shareQuote()" title="Bagikan Quote">
                         <i class="fas fa-share-alt"></i>
@@ -309,7 +351,7 @@
                 </div>
                 <div id="quoteLength"></div>
             </div>
-        </div>
+        </section>
 
         <div class="controls">
             <button class="btn btn-primary" onclick="getRandomQuote()">
@@ -317,97 +359,108 @@
             </button>
         </div>
 
-        <div class="loading" id="loading">
+        <div class="notification loading" id="loading">
             <i class="fas fa-spinner fa-spin"></i> Memuat quote...
         </div>
-        <div class="error" id="error"></div>
+        <div class="notification error" id="error"></div>
 
-        <div class="api-info">
+        <section class="api-config">
             <h3><i class="fas fa-key"></i> Konfigurasi API</h3>
-            <p>Masukkan API Key Anda (dapatkan dari <a href="https://katakataquote.netlify.app" target="_blank" style="color: var(--accent);">dashboard</a>)</p>
+            <p>Masukkan API Key Anda (dapatkan dari <a href="https://katakataquote.netlify.app" target="_blank">dashboard</a>)</p>
             <input type="password" class="api-key-input" id="apiKeyInput" placeholder="Masukkan API Key di sini..." />
-            <button class="btn" onclick="saveApiKey()">
+            <button class="btn btn-secondary" onclick="saveApiKey()">
                 <i class="fas fa-save"></i> Simpan API Key
             </button>
-            <div class="success-message" id="successMessage">
+            <div class="notification success" id="successMessage">
                 <i class="fas fa-check-circle"></i> API Key berhasil disimpan!
             </div>
             <p style="margin-top: 15px; font-size: 0.85rem;">
                 <i class="fas fa-info-circle"></i> Free plan: 10 request/hari | Premium: Unlimited
             </p>
-        </div>
+        </section>
 
-        <div class="footer">
-            <p>© 2023 Kata Kata Motivasi</p>
-        </div>
-    </div>
+        <footer class="footer">
+            <p>© 2025 Kata Kata Motivasi</p>
+        </footer>
+
+    </main>
 
     <script>
+        // Ambil elemen DOM
+        const quoteTextEl = document.getElementById('quoteText');
+        const quoteAuthorEl = document.getElementById('quoteAuthor');
+        const quoteLengthEl = document.getElementById('quoteLength');
+        const apiKeyInput = document.getElementById('apiKeyInput');
+        const loadingEl = document.getElementById('loading');
+        const errorEl = document.getElementById('error');
+        const successEl = document.getElementById('successMessage');
+
         let apiKey = localStorage.getItem('katakata_api_key') || '';
 
-        // Save API Key to localStorage
-        function saveApiKey() {
-            const input = document.getElementById('apiKeyInput');
-            const successMessage = document.getElementById('successMessage');
+        // Fungsi untuk menampilkan notifikasi (error atau success)
+        function showNotification(element, message, duration = 3000) {
+            element.textContent = message;
+            element.style.display = 'block';
             
-            if (input.value.trim()) {
-                apiKey = input.value.trim();
-                localStorage.setItem('katakata_api_key', apiKey);
-                
-                // Show success message
-                successMessage.style.display = 'block';
+            if (duration) {
                 setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 3000);
-            } else {
-                showError('Masukkan API Key yang valid!');
+                    element.style.display = 'none';
+                }, duration);
             }
         }
 
-        // Show error message
-        function showError(message) {
-            const error = document.getElementById('error');
-            error.textContent = message;
-            error.style.display = 'block';
-            
-            setTimeout(() => {
-                error.style.display = 'none';
-            }, 5000);
+        // Simpan API Key
+        function saveApiKey() {
+            const newKey = apiKeyInput.value.trim();
+            if (newKey) {
+                apiKey = newKey;
+                localStorage.setItem('katakata_api_key', apiKey);
+                showNotification(successEl, 'API Key berhasil disimpan!');
+            } else {
+                showNotification(errorEl, 'Masukkan API Key yang valid!');
+            }
         }
 
-        // Load saved API Key
+        // Muat API Key saat halaman dibuka
         window.onload = function() {
-            const savedKey = localStorage.getItem('katakata_api_key');
-            if (savedKey) {
-                document.getElementById('apiKeyInput').value = savedKey;
-                apiKey = savedKey;
+            if (apiKey) {
+                apiKeyInput.value = apiKey;
+                // Ambil quote pertama jika API key sudah ada
+                getRandomQuote();
             }
         };
 
-        // Get random quote from API
+        // Get random quote
         async function getRandomQuote() {
-            const loading = document.getElementById('loading');
-            const error = document.getElementById('error');
-            const quoteText = document.getElementById('quoteText');
-            const quoteAuthor = document.getElementById('quoteAuthor');
-            const quoteLength = document.getElementById('quoteLength');
-
-            // Show loading, hide error
-            loading.style.display = 'block';
-            error.style.display = 'none';
+            // Reset notifikasi
+            loadingEl.style.display = 'block';
+            errorEl.style.display = 'none';
 
             if (!apiKey) {
-                showError('Silakan masukkan API Key terlebih dahulu!');
-                loading.style.display = 'none';
+                showNotification(errorEl, 'Silakan masukkan API Key di bagian Konfigurasi API!');
+                loadingEl.style.display = 'none';
                 return;
             }
 
+            // --- PERBAIKAN CORS ---
+            // Kode asli menggunakan proxy 'proxy.corsfix.com'.
+            // Ini adalah 'hack' dan sering tidak stabil.
+            // Solusi yang TEPAT adalah memanggil API secara langsung.
+            // 
+            // JIKA INI GAGAL di GitHub Pages, itu berarti server API
+            // (katakataquote.netlify.app) tidak mengirimkan header
+            // 'Access-Control-Allow-Origin: *' atau
+            // 'Access-Control-Allow-Origin: 'https-username.github.io''.
+            //
+            // Pemilik API (mungkin Anda, Xbibz Official) harus
+            // mengkonfigurasi fungsi Netlify mereka untuk mengizinkan
+            // permintaan dari domain GitHub Pages Anda.
+            //
+            // Saya telah menghapus proxy untuk solusi yang bersih dan benar.
+            const apiUrl = 'https://katakataquote.netlify.app/api/get-quote';
+
             try {
-                // Using a CORS proxy to avoid CORS issues
-                const proxyUrl = 'https://proxy.corsfix.com/?url=';
-                const apiUrl = 'https://katakataquote.netlify.app/api/get-quote';
-                
-                const response = await fetch(proxyUrl + encodeURIComponent(apiUrl), {
+                const response = await fetch(apiUrl, {
                     headers: {
                         'x-api-key': apiKey,
                         'Content-Type': 'application/json'
@@ -415,66 +468,84 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error(`Gagal mengambil quote. Status: ${response.status}`);
+                    // Coba tangkap pesan error dari API jika ada
+                    let errorMsg = `Gagal mengambil quote. Status: ${response.status}`;
+                    try {
+                        const errorData = await response.json();
+                        errorMsg = errorData.message || errorMsg;
+                    } catch (e) {
+                        // biarkan pesan error default
+                    }
+                    throw new Error(errorMsg);
                 }
 
                 const data = await response.json();
-                
-                // Display the quote (adjust based on actual API response format)
+
+                // Logika untuk menampilkan data (lebih kuat)
+                let text = 'Tidak ada quote ditemukan.';
+                let author = '';
+
                 if (data.quote || data.kutipan || data.text) {
-                    quoteText.textContent = data.quote || data.kutipan || data.text;
-                    quoteAuthor.textContent = data.author || data.penulis || '';
+                    text = data.quote || data.kutipan || data.text;
+                    author = data.author || data.penulis || '';
                 } else if (Array.isArray(data) && data.length > 0) {
-                    // If response is an array
-                    quoteText.textContent = data[0].quote || data[0].kutipan || data[0].text || JSON.stringify(data[0]);
-                    quoteAuthor.textContent = data[0].author || data[0].penulis || '';
-                } else {
-                    // Fallback: display the raw data
-                    quoteText.textContent = JSON.stringify(data, null, 2);
-                    quoteAuthor.textContent = '';
+                    const item = data[0];
+                    text = item.quote || item.kutipan || item.text || JSON.stringify(item);
+                    author = item.author || item.penulis || '';
+                } else if (typeof data === 'object' && data !== null) {
+                    text = JSON.stringify(data, null, 2);
                 }
+
+                quoteTextEl.textContent = text;
+                quoteAuthorEl.textContent = author;
                 
-                // Update quote length
-                const textLength = quoteText.textContent.length;
-                quoteLength.textContent = `${textLength} karakter`;
+                // Update panjang karakter
+                quoteLengthEl.textContent = `${text.length} karakter`;
 
             } catch (err) {
-                showError(`Error: ${err.message}`);
-                quoteText.textContent = 'Gagal memuat quote. Coba lagi nanti.';
-                quoteAuthor.textContent = '';
-                quoteLength.textContent = '';
+                // Tampilkan error CORS atau error lainnya
+                let errorToShow = err.message;
+                if (err instanceof TypeError && err.message.includes('Failed to fetch')) {
+                    errorToShow = "Gagal terhubung ke API. Ini mungkin masalah CORS atau jaringan. Pastikan server API mengizinkan domain ini.";
+                }
+                
+                showNotification(errorEl, `Error: ${errorToShow}`, 5000);
+                quoteTextEl.textContent = 'Gagal memuat quote. Coba lagi nanti.';
+                quoteAuthorEl.textContent = '';
+                quoteLengthEl.textContent = '';
             } finally {
-                loading.style.display = 'none';
+                loadingEl.style.display = 'none';
             }
         }
 
-        // Copy quote to clipboard
+        // Copy quote
         function copyQuote() {
-            const quoteText = document.getElementById('quoteText').textContent;
-            const quoteAuthor = document.getElementById('quoteAuthor').textContent;
+            const quoteText = quoteTextEl.textContent;
+            const quoteAuthor = quoteAuthorEl.textContent;
             
             const fullQuote = quoteAuthor ? `"${quoteText}" - ${quoteAuthor}` : `"${quoteText}"`;
             
             navigator.clipboard.writeText(fullQuote).then(() => {
-                // Show temporary feedback
-                const iconBtn = event.target.closest('.icon-btn');
-                const originalIcon = iconBtn.innerHTML;
-                iconBtn.innerHTML = '<i class="fas fa-check"></i>';
-                iconBtn.style.color = 'var(--success)';
+                // Feedback visual modern
+                const copyButton = document.getElementById('copyButton');
+                const originalIcon = copyButton.innerHTML;
+                
+                copyButton.innerHTML = '<i class="fas fa-check"></i>';
+                copyButton.style.color = 'var(--success)';
                 
                 setTimeout(() => {
-                    iconBtn.innerHTML = originalIcon;
-                    iconBtn.style.color = '';
+                    copyButton.innerHTML = originalIcon;
+                    copyButton.style.color = '';
                 }, 2000);
             }).catch(() => {
-                showError('Gagal menyalin quote. Silakan salin manual.');
+                showNotification(errorEl, 'Gagal menyalin quote. Silakan salin manual.');
             });
         }
 
         // Share quote
         function shareQuote() {
-            const quoteText = document.getElementById('quoteText').textContent;
-            const quoteAuthor = document.getElementById('quoteAuthor').textContent;
+            const quoteText = quoteTextEl.textContent;
+            const quoteAuthor = quoteAuthorEl.textContent;
             
             const fullQuote = quoteAuthor ? `"${quoteText}" - ${quoteAuthor}` : `"${quoteText}"`;
             
@@ -487,17 +558,11 @@
                     console.log('Error sharing:', err);
                 });
             } else {
-                // Fallback: copy to clipboard
+                // Fallback jika 'share' tidak didukung
                 copyQuote();
+                showNotification(successEl, 'Fitur Share tidak didukung. Quote telah disalin!', 3000);
             }
         }
-
-        // Get initial quote when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            if (apiKey) {
-                getRandomQuote();
-            }
-        });
     </script>
 </body>
 </html>
